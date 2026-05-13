@@ -1,6 +1,6 @@
 # Adapa SriVatsav | VS Code Interactive Portfolio
 
-> **Live Preview:** [srivatsav-portfolio.vercel.app](https://srivatsav-portfolio.vercel.app/) 
+> **Live Preview:** [adapasrivatsav.in](https://adapasrivatsav.in) 
 
 Welcome to my interactive, VS Code-themed developer portfolio! I built this to showcase my skills at the convergence of full-stack development, AI/ML, and real-time systems.
 

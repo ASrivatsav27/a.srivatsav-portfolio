@@ -186,7 +186,7 @@ export default function Home() {
           {/* Content Area */}
           <div className="flex-1 overflow-y-auto overflow-x-hidden px-6 md:px-12 py-8">
             <div className="tab-content-enter" key={activeTab}>
-              <ActiveSection />
+              <ActiveSection onNavigate={openFile} />
             </div>
           </div>
           
