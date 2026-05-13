@@ -119,11 +119,8 @@ export default function HomeSection({ onNavigate }: { onNavigate?: (id: string) 
       <div className="flex flex-wrap gap-3 mb-10">
         <button
           onClick={() => {
+            window.dispatchEvent(new CustomEvent('navigate', { detail: 'projects' }));
             if (onNavigate) onNavigate("projects");
-            else {
-              const el = document.querySelector('[data-file="projects"]');
-              if (el) (el as HTMLElement).click();
-            }
           }}
           className="flex items-center gap-2 px-5 py-2.5 bg-[#4ec9b0] text-[#1e1e1e] font-semibold text-sm rounded hover:bg-[#3dbda4] transition-colors cursor-pointer"
         >
@@ -132,11 +129,8 @@ export default function HomeSection({ onNavigate }: { onNavigate?: (id: string) 
         </button>
         <button
           onClick={() => {
+            window.dispatchEvent(new CustomEvent('navigate', { detail: 'about' }));
             if (onNavigate) onNavigate("about");
-            else {
-              const el = document.querySelector('[data-file="about"]');
-              if (el) (el as HTMLElement).click();
-            }
           }}
           className="flex items-center gap-2 px-5 py-2.5 border border-[#3c3c3c] text-[#cccccc] text-sm rounded hover:border-[#4ec9b0] hover:text-[#4ec9b0] transition-colors cursor-pointer"
         >
@@ -145,11 +139,8 @@ export default function HomeSection({ onNavigate }: { onNavigate?: (id: string) 
         </button>
         <button
           onClick={() => {
+            window.dispatchEvent(new CustomEvent('navigate', { detail: 'contact' }));
             if (onNavigate) onNavigate("contact");
-            else {
-              const el = document.querySelector('[data-file="contact"]');
-              if (el) (el as HTMLElement).click();
-            }
           }}
           className="flex items-center gap-2 px-5 py-2.5 border border-[#3c3c3c] text-[#cccccc] text-sm rounded hover:border-[#4ec9b0] hover:text-[#4ec9b0] transition-colors cursor-pointer"
         >

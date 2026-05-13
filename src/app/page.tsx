@@ -97,6 +97,15 @@ export default function Home() {
     [openTabs]
   );
 
+  // Global event listener for navigation (fallback for mobile buttons)
+  useEffect(() => {
+    const handleNavigate = (e: CustomEvent) => {
+      if (e.detail) openFile(e.detail);
+    };
+    window.addEventListener('navigate', handleNavigate as EventListener);
+    return () => window.removeEventListener('navigate', handleNavigate as EventListener);
+  }, [openFile]);
+
   const closeTab = useCallback(
     (fileId: string, e: React.MouseEvent) => {
       e.stopPropagation();
