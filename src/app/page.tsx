@@ -84,9 +84,12 @@ export default function Home() {
 
   const openFile = useCallback(
     (fileId: string) => {
-      if (!openTabs.includes(fileId)) {
-        setOpenTabs((prev) => [...prev, fileId]);
-      }
+      setOpenTabs((prev) => {
+        if (!prev.includes(fileId)) {
+          return [...prev, fileId];
+        }
+        return prev;
+      });
       setActiveTab(fileId);
       
       // Auto-close sidebar on mobile after selecting a file
@@ -94,7 +97,7 @@ export default function Home() {
         setSidebarOpen(false);
       }
     },
-    [openTabs]
+    []
   );
 
   // Global event listener for navigation (fallback for mobile buttons)
