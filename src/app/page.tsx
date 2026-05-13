@@ -1,65 +1,190 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import TitleBar from "@/components/layout/TitleBar";
+import ActivityBar from "@/components/layout/ActivityBar";
+import Sidebar from "@/components/layout/Sidebar";
+import EditorTabs from "@/components/layout/EditorTabs";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
+import StatusBar from "@/components/layout/StatusBar";
+import HomeSection from "@/components/sections/HomeSection";
+import AboutSection from "@/components/sections/AboutSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import SkillsSection from "@/components/sections/SkillsSection";
+import AchievementsSection from "@/components/sections/AchievementsSection";
+import ContactSection from "@/components/sections/ContactSection";
+import ReadmeSection from "@/components/sections/ReadmeSection";
+import ResumeSection from "@/components/sections/ResumeSection";
+import CopilotPanel from "@/components/panels/CopilotPanel";
+import dynamic from "next/dynamic";
+
+const TerminalPanel = dynamic(() => import("@/components/panels/TerminalPanel"), { ssr: false });
+
+export interface FileTab {
+  id: string;
+  name: string;
+  icon: string;
+  language: string;
+}
+
+const FILES: FileTab[] = [
+  { id: "home", name: "home.tsx", icon: "react", language: "TypeScript React" },
+  { id: "about", name: "about.html", icon: "html", language: "HTML" },
+  { id: "projects", name: "projects.ts", icon: "ts", language: "TypeScript" },
+  { id: "skills", name: "skills.json", icon: "json", language: "JSON" },
+  { id: "achievements", name: "achievements.ts", icon: "ts", language: "TypeScript" },
+  { id: "contact", name: "contact.css", icon: "css", language: "CSS" },
+  { id: "readme", name: "README.md", icon: "md", language: "Markdown" },
+  { id: "resume", name: "resume.tex", icon: "md", language: "LaTeX" },
+];
+
+const SECTIONS: Record<string, React.ComponentType> = {
+  home: HomeSection,
+  about: AboutSection,
+  projects: ProjectsSection,
+  skills: SkillsSection,
+  achievements: AchievementsSection,
+  contact: ContactSection,
+  readme: ReadmeSection,
+  resume: ResumeSection,
+};
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState("home");
+  const [openTabs, setOpenTabs] = useState<string[]>(["home"]);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [copilotOpen, setCopilotOpen] = useState(true); // Default to true to show off AI right away
+  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [sidebarWidth, setSidebarWidth] = useState(260);
+  const [isResizing, setIsResizing] = useState(false);
+
+  // Responsive default layout for mobile
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+      setCopilotOpen(false);
+      setSidebarWidth(window.innerWidth - 48);
+    }
+  }, []);
+
+  const openFile = useCallback(
+    (fileId: string) => {
+      if (!openTabs.includes(fileId)) {
+        setOpenTabs((prev) => [...prev, fileId]);
+      }
+      setActiveTab(fileId);
+    },
+    [openTabs]
+  );
+
+  const closeTab = useCallback(
+    (fileId: string, e: React.MouseEvent) => {
+      e.stopPropagation();
+      const newTabs = openTabs.filter((t) => t !== fileId);
+      if (newTabs.length === 0) {
+        setOpenTabs(["home"]);
+        setActiveTab("home");
+      } else {
+        setOpenTabs(newTabs);
+        if (activeTab === fileId) {
+          setActiveTab(newTabs[newTabs.length - 1]);
+        }
+      }
+    },
+    [openTabs, activeTab]
+  );
+
+  const handleMouseDown = useCallback(() => {
+    setIsResizing(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isResizing) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      const newWidth = e.clientX - 48;
+      setSidebarWidth(Math.max(180, Math.min(400, newWidth)));
+    };
+    const handleMouseUp = () => setIsResizing(false);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing]);
+
+  const activeFile = FILES.find((f) => f.id === activeTab);
+  const ActiveSection = SECTIONS[activeTab] || HomeSection;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="h-screen flex flex-col bg-[#1e1e1e] overflow-hidden select-none">
+      {/* Title Bar */}
+      <TitleBar />
+
+      <div className="flex flex-1 overflow-hidden">
+        {/* Activity Bar */}
+        <ActivityBar
+          sidebarOpen={sidebarOpen}
+          onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          copilotOpen={copilotOpen}
+          onToggleCopilot={() => setCopilotOpen(!copilotOpen)}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        {/* Sidebar */}
+        {sidebarOpen && (
+          <>
+            <Sidebar
+              files={FILES}
+              activeTab={activeTab}
+              onFileClick={openFile}
+              width={sidebarWidth}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            {/* Resize Handle */}
+            <div
+              className="w-[3px] cursor-col-resize hover:bg-[#007fd4] transition-colors duration-150 flex-shrink-0"
+              onMouseDown={handleMouseDown}
+            />
+          </>
+        )}
+
+        {/* Main Editor */}
+        <main className="flex-1 flex flex-col overflow-hidden min-w-0">
+          {/* Tabs */}
+          <EditorTabs
+            files={FILES}
+            openTabs={openTabs}
+            activeTab={activeTab}
+            onTabClick={setActiveTab}
+            onTabClose={closeTab}
+          />
+
+          {/* Breadcrumbs */}
+          <Breadcrumbs fileName={activeFile?.name || "home.tsx"} />
+
+          {/* Content Area */}
+          <div className="flex-1 overflow-y-auto overflow-x-hidden px-6 md:px-12 py-8">
+            <div className="tab-content-enter" key={activeTab}>
+              <ActiveSection />
+            </div>
+          </div>
+          
+          {/* Terminal */}
+          {terminalOpen && (
+            <TerminalPanel onClose={() => setTerminalOpen(false)} />
+          )}
+        </main>
+
+        {/* Copilot Right Panel */}
+        {copilotOpen && (
+          <CopilotPanel onClose={() => setCopilotOpen(false)} />
+        )}
+      </div>
+
+      {/* Status Bar */}
+      <StatusBar 
+        language={activeFile?.language || "TypeScript React"} 
+        onToggleTerminal={() => setTerminalOpen(!terminalOpen)}
+      />
     </div>
   );
 }

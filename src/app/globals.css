@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: #1e1e1e;
+  --color-foreground: #cccccc;
+  --color-vscode-bg: #1e1e1e;
+  --color-vscode-sidebar: #252526;
+  --color-vscode-activitybar: #333333;
+  --color-vscode-titlebar: #3c3c3c;
+  --color-vscode-statusbar: #007acc;
+  --color-vscode-tab-active: #1e1e1e;
+  --color-vscode-tab-inactive: #2d2d2d;
+  --color-vscode-tab-border: #252526;
+  --color-vscode-border: #3c3c3c;
+  --color-vscode-hover: #2a2d2e;
+  --color-vscode-selection: #264f78;
+  --color-vscode-focus: #007fd4;
+  --color-accent: #4ec9b0;
+  --color-accent-pink: #c586c0;
+  --color-accent-blue: #569cd6;
+  --color-accent-yellow: #dcdcaa;
+  --color-accent-orange: #ce9178;
+  --color-accent-green: #6a9955;
+  --color-accent-red: #f44747;
+  --color-accent-cyan: #4fc1ff;
+  --color-text-primary: #cccccc;
+  --color-text-secondary: #858585;
+  --color-text-muted: #5a5a5a;
+  --color-text-white: #e0e0e0;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #424242 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: #1e1e1e;
+  color: #cccccc;
+}
+
+::selection {
+  background: #264f78;
+  color: #ffffff;
+}
+
+/* Skill bar animation */
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: var(--bar-width); }
+}
+
+.skill-bar-fill {
+  animation: fillBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-play-state: paused;
+}
+
+.skill-bar-fill.animate {
+  animation-play-state: running;
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Timeline dot pulse */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(78, 201, 176, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(78, 201, 176, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(78, 201, 176, 0); }
+}
+
+.timeline-dot-pulse {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Stats counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.count-up {
+  animation: countUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Tab slide transition */
+.tab-content-enter {
+  animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Glow effect for accent items */
+.glow-accent {
+  text-shadow: 0 0 20px rgba(78, 201, 176, 0.3);
+}
+
+/* Project card hover lift */
+.project-card {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-color: #4ec9b0;
+}
+
+/* Social link hover */
+.social-link {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-link:hover {
+  background: #2a2d2e;
+  border-color: #4ec9b0;
+  color: #4ec9b0;
+}
+
+/* Contact card hover */
+.contact-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-card:hover {
+  background: #2a2d2e;
+  border-color: #4ec9b0;
+}
+
+/* Status bar gradient on hover */
+.statusbar-item {
+  transition: background 0.15s ease;
+}
+
+.statusbar-item:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
