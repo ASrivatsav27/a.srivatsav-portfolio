@@ -65,7 +65,7 @@ function TypewriterHTML({ html, delay = 15 }: { html: string; delay?: number }) 
   );
 }
 
-export default function HomeSection({ onNavigate }: { onNavigate?: (id: string) => void }) {
+export default function HomeSection() {
   return (
     <section id="home-section" className="max-w-4xl fade-in-up">
       {/* Code Comment */}
@@ -119,8 +119,7 @@ export default function HomeSection({ onNavigate }: { onNavigate?: (id: string) 
       <div className="flex flex-wrap gap-3 mb-10">
         <button
           onClick={() => {
-            if (onNavigate) onNavigate("projects");
-            else window.dispatchEvent(new CustomEvent('navigate', { detail: 'projects' }));
+            window.dispatchEvent(new CustomEvent('navigate', { detail: 'projects' }));
           }}
           className="flex items-center gap-2 px-5 py-2.5 bg-[#4ec9b0] text-[#1e1e1e] font-semibold text-sm rounded hover:bg-[#3dbda4] transition-colors cursor-pointer"
         >
@@ -129,8 +128,7 @@ export default function HomeSection({ onNavigate }: { onNavigate?: (id: string) 
         </button>
         <button
           onClick={() => {
-            if (onNavigate) onNavigate("about");
-            else window.dispatchEvent(new CustomEvent('navigate', { detail: 'about' }));
+            window.dispatchEvent(new CustomEvent('navigate', { detail: 'about' }));
           }}
           className="flex items-center gap-2 px-5 py-2.5 border border-[#3c3c3c] text-[#cccccc] text-sm rounded hover:border-[#4ec9b0] hover:text-[#4ec9b0] transition-colors cursor-pointer"
         >
@@ -139,8 +137,7 @@ export default function HomeSection({ onNavigate }: { onNavigate?: (id: string) 
         </button>
         <button
           onClick={() => {
-            if (onNavigate) onNavigate("contact");
-            else window.dispatchEvent(new CustomEvent('navigate', { detail: 'contact' }));
+            window.dispatchEvent(new CustomEvent('navigate', { detail: 'contact' }));
           }}
           className="flex items-center gap-2 px-5 py-2.5 border border-[#3c3c3c] text-[#cccccc] text-sm rounded hover:border-[#4ec9b0] hover:text-[#4ec9b0] transition-colors cursor-pointer"
         >
