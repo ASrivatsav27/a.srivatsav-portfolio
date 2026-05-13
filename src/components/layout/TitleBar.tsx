@@ -16,15 +16,17 @@ export default function TitleBar() {
       </div>
 
       {/* Center: Title */}
-      <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-[13px] text-[#999]">
-        <span className="text-[#4ec9b0]">●</span>
-        <span>adapa-srivatsav : portfolio</span>
-        <span className="text-[11px] text-[#666] bg-[#2d2d2d] px-1.5 py-0.5 rounded">
-          Ctrl
-        </span>
-        <span className="text-[11px] text-[#666] bg-[#2d2d2d] px-1.5 py-0.5 rounded">
-          P
-        </span>
+      <div className="flex-1 flex justify-center items-center overflow-hidden px-2">
+        <div className="flex items-center gap-2 text-[13px] text-[#999] whitespace-nowrap overflow-hidden">
+          <span className="text-[#4ec9b0] hidden sm:inline">●</span>
+          <span className="truncate">adapa-srivatsav : portfolio</span>
+          <span className="text-[11px] text-[#666] bg-[#2d2d2d] px-1.5 py-0.5 rounded hidden sm:inline-block">
+            Ctrl
+          </span>
+          <span className="text-[11px] text-[#666] bg-[#2d2d2d] px-1.5 py-0.5 rounded hidden sm:inline-block">
+            P
+          </span>
+        </div>
       </div>
 
       {/* Right: Window controls */}

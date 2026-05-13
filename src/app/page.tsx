@@ -57,14 +57,29 @@ export default function Home() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(260);
   const [isResizing, setIsResizing] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Responsive default layout for mobile
+  // Responsive layout handling
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      setSidebarOpen(false);
-      setCopilotOpen(false);
-      setSidebarWidth(window.innerWidth - 48);
-    }
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setSidebarOpen(false);
+        setCopilotOpen(false);
+        setSidebarWidth(window.innerWidth - 48);
+      } else {
+        // Optional: restore some layout if resized to desktop? 
+        // For now, let's just make sure it doesn't break.
+        setSidebarWidth(260);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const openFile = useCallback(
@@ -73,6 +88,11 @@ export default function Home() {
         setOpenTabs((prev) => [...prev, fileId]);
       }
       setActiveTab(fileId);
+      
+      // Auto-close sidebar on mobile after selecting a file
+      if (window.innerWidth < 768) {
+        setSidebarOpen(false);
+      }
     },
     [openTabs]
   );
@@ -133,15 +153,17 @@ export default function Home() {
         {/* Sidebar */}
         {sidebarOpen && (
           <>
-            <Sidebar
-              files={FILES}
-              activeTab={activeTab}
-              onFileClick={openFile}
-              width={sidebarWidth}
-            />
-            {/* Resize Handle */}
+            <div className={`flex-shrink-0 z-10 ${isMobile ? 'absolute h-[calc(100vh-22px-35px)] bg-[#252526]' : 'relative'}`} style={{ width: sidebarWidth }}>
+              <Sidebar
+                files={FILES}
+                activeTab={activeTab}
+                onFileClick={openFile}
+                width={sidebarWidth}
+              />
+            </div>
+            {/* Resize Handle - Hide on mobile */}
             <div
-              className="w-[3px] cursor-col-resize hover:bg-[#007fd4] transition-colors duration-150 flex-shrink-0"
+              className="w-[3px] cursor-col-resize hover:bg-[#007fd4] transition-colors duration-150 flex-shrink-0 hidden md:block"
               onMouseDown={handleMouseDown}
             />
           </>
@@ -176,7 +198,9 @@ export default function Home() {
 
         {/* Copilot Right Panel */}
         {copilotOpen && (
-          <CopilotPanel onClose={() => setCopilotOpen(false)} />
+          <div className={`flex-shrink-0 z-10 border-l border-[#252526] ${isMobile ? 'absolute right-0 h-[calc(100vh-22px-35px)] bg-[#252526]' : 'relative'}`} style={{ width: isMobile ? 'calc(100vw - 48px)' : 320 }}>
+            <CopilotPanel onClose={() => setCopilotOpen(false)} />
+          </div>
         )}
       </div>
 

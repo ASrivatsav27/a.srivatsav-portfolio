@@ -45,7 +45,7 @@ export default function StatusBar({ language, onToggleTerminal }: StatusBarProps
           <GitBranch size={13} />
           <span>main</span>
         </div>
-        <div className="statusbar-item flex items-center gap-1 px-2 h-full cursor-pointer">
+        <div className="statusbar-item flex items-center gap-1 px-2 h-full cursor-pointer hidden sm:flex">
           <AlertTriangle size={13} />
           <span>0</span>
           <Info size={13} className="ml-0.5" />
@@ -62,20 +62,20 @@ export default function StatusBar({ language, onToggleTerminal }: StatusBarProps
 
       {/* Right */}
       <div className="flex items-center gap-0">
-        <div className="statusbar-item px-2 h-full flex items-center cursor-pointer">
+        <div className="statusbar-item px-2 h-full flex items-center cursor-pointer max-w-[100px] truncate sm:max-w-none">
           {language}
         </div>
-        <div className="statusbar-item px-2 h-full flex items-center cursor-pointer">
+        <div className="statusbar-item px-2 h-full flex items-center cursor-pointer hidden sm:flex">
           UTF-8
         </div>
-        <div className="statusbar-item px-2 h-full flex items-center cursor-pointer">
+        <div className="statusbar-item px-2 h-full flex items-center cursor-pointer hidden sm:flex">
           Prettier
         </div>
-        <div className="statusbar-item flex items-center gap-1 px-2 h-full cursor-pointer">
+        <div className="statusbar-item flex items-center gap-1 px-2 h-full cursor-pointer hidden sm:flex">
           <Check size={13} />
           <span>SriVatsav Dark</span>
         </div>
-        <div className="statusbar-item flex items-center gap-1 px-2 h-full cursor-pointer">
+        <div className="statusbar-item flex items-center gap-1 px-2 h-full cursor-pointer hidden md:flex">
           <Bell size={13} />
         </div>
         <div className="statusbar-item px-2 h-full flex items-center cursor-pointer font-mono tabular-nums">

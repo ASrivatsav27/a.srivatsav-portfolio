@@ -119,7 +119,7 @@ You can try asking me about:
   return (
     <aside
       id="copilot-panel"
-      className="w-[360px] md:w-[380px] bg-[#252526] flex-shrink-0 border-l border-[#1e1e1e] flex flex-col overflow-hidden"
+      className="w-full h-full bg-[#252526] flex-shrink-0 flex flex-col overflow-hidden"
       aria-label="AI Copilot Panel"
     >
       {/* Header */}

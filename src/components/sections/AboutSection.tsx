@@ -91,14 +91,14 @@ export default function AboutSection() {
       <div className="space-y-4">
         {/* College */}
         <div className="border border-[#3c3c3c] rounded-lg p-5 bg-[#252526]/30 hover:border-[#4ec9b0]/30 transition-colors">
-          <div className="flex items-start justify-between mb-1">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-1 gap-1 sm:gap-0">
             <div className="flex items-center gap-2">
-              <GraduationCap size={18} className="text-[#dcdcaa]" />
-              <strong className="text-white text-[15px]">
+              <GraduationCap size={18} className="text-[#dcdcaa] flex-shrink-0" />
+              <strong className="text-white text-[15px] leading-tight">
                 Methodist College of Engineering & Technology
               </strong>
             </div>
-            <span className="text-[#858585] text-sm whitespace-nowrap ml-4">
+            <span className="text-[#858585] text-sm sm:whitespace-nowrap ml-7 sm:ml-4">
               Sep 2023 – Sep 2027
             </span>
           </div>
@@ -112,14 +112,14 @@ export default function AboutSection() {
 
         {/* School */}
         <div className="border border-[#3c3c3c] rounded-lg p-5 bg-[#252526]/30 hover:border-[#4ec9b0]/30 transition-colors">
-          <div className="flex items-start justify-between mb-1">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-1 gap-1 sm:gap-0">
             <div className="flex items-center gap-2">
-              <School size={18} className="text-[#dcdcaa]" />
-              <strong className="text-white text-[15px]">
+              <School size={18} className="text-[#dcdcaa] flex-shrink-0" />
+              <strong className="text-white text-[15px] leading-tight">
                 St Paul&apos;s High School
               </strong>
             </div>
-            <span className="text-[#858585] text-sm whitespace-nowrap ml-4">
+            <span className="text-[#858585] text-sm sm:whitespace-nowrap ml-7 sm:ml-4">
               Graduated 2023
             </span>
           </div>

@@ -46,7 +46,7 @@ export default function EditorTabs({
           <button
             key={file.id}
             onClick={() => onTabClick(file.id)}
-            className={`group h-full flex items-center gap-2 px-3 text-[13px] border-r border-[#252526] transition-colors min-w-0 flex-shrink-0
+            className={`group h-full flex items-center gap-2 px-3 text-[13px] border-r border-[#252526] transition-colors flex-shrink-0
               ${
                 isActive
                   ? "bg-[#1e1e1e] text-white border-t-2 border-t-[#007acc]"
@@ -58,11 +58,11 @@ export default function EditorTabs({
               className="flex-shrink-0"
               style={{ color: iconColor }}
             />
-            <span className="truncate">{file.name}</span>
+            <span className="whitespace-nowrap">{file.name}</span>
             <span
               onClick={(e) => onTabClose(file.id, e)}
               className={`ml-1 p-0.5 rounded hover:bg-[#505050] transition-colors flex-shrink-0
-                ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100 md:opacity-0 md:group-hover:opacity-100"}`}
             >
               <X size={14} />
             </span>

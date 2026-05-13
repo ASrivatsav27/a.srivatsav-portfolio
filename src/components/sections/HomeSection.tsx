@@ -74,11 +74,11 @@ export default function HomeSection() {
       </p>
 
       {/* Name */}
-      <h1 className="mb-6 flex flex-wrap gap-x-4">
-        <span className="text-6xl md:text-8xl font-bold text-[#e0e0e0] tracking-tight leading-[0.95] font-sans">
+      <h1 className="mb-6 flex flex-wrap gap-x-3 md:gap-x-4">
+        <span className="text-5xl sm:text-6xl md:text-8xl font-bold text-[#e0e0e0] tracking-tight leading-[0.95] font-sans">
           A.
         </span>
-        <span className="text-6xl md:text-8xl font-bold text-[#4ec9b0] tracking-tight leading-[0.95] font-sans glow-accent">
+        <span className="text-5xl sm:text-6xl md:text-8xl font-bold text-[#4ec9b0] tracking-tight leading-[0.95] font-sans glow-accent">
           SriVatsav
         </span>
       </h1>

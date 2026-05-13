@@ -31,13 +31,13 @@ export default function ResumeSection() {
         {/* Name & Contact */}
         <div className="text-center mb-8 border-b border-[#3c3c3c] pb-6">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-3">Adapa SriVatsav</h1>
-          <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 text-[13px] md:text-sm text-[#4ec9b0]">
+          <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-[13px] md:text-sm text-[#4ec9b0]">
             <a href="tel:+919989916427" className="hover:underline">+91-9989916427</a>
-            <span className="text-[#5a5a5a]">|</span>
+            <span className="text-[#5a5a5a] hidden md:inline">|</span>
             <a href="mailto:srivatsava47@gmail.com" className="hover:underline">srivatsava47@gmail.com</a>
-            <span className="text-[#5a5a5a]">|</span>
+            <span className="text-[#5a5a5a] hidden md:inline">|</span>
             <a href="https://linkedin.com/in/adapa-srivatsav" target="_blank" rel="noopener noreferrer" className="hover:underline">linkedin/adapa-srivatsav</a>
-            <span className="text-[#5a5a5a]">|</span>
+            <span className="text-[#5a5a5a] hidden md:inline">|</span>
             <a href="https://github.com/ASrivatsav27" target="_blank" rel="noopener noreferrer" className="hover:underline">github/ASrivatsav27</a>
           </div>
         </div>

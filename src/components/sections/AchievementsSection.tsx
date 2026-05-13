@@ -98,13 +98,13 @@ export default function AchievementsSection() {
               </div>
 
               {/* Title */}
-              <div className="flex items-center gap-3 mb-1">
+              <div className="flex items-start gap-3 mb-1">
                 {achievement.place === "1st" ? (
-                  <Trophy size={20} className="text-[#dcdcaa]" />
+                  <Trophy size={20} className="text-[#dcdcaa] flex-shrink-0 mt-0.5" />
                 ) : (
-                  <Award size={20} className="text-[#ce9178]" />
+                  <Award size={20} className="text-[#ce9178] flex-shrink-0 mt-0.5" />
                 )}
-                <h3 className="text-xl font-bold text-white font-sans">
+                <h3 className="text-xl font-bold text-white font-sans leading-tight">
                   {achievement.title}
                 </h3>
               </div>
